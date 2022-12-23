@@ -1,0 +1,13 @@
+<h1>Register form</h1>
+
+<div>
+  <%= form_for @user do |u| %>
+    <%= u.label :username %>
+    <%= u.text_field :username %>
+
+    <%= u.label :password %>
+    <%= u.password_field :password %>
+
+    <%= u.submit %>
+  <% end %>
+</div>

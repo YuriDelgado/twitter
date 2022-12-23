@@ -9,5 +9,8 @@ class Tweets extends React.Component {
   }
 }
 
-const tweets = ReactDom.createRoot(document.getElementById("tweets"))
-tweets.render(<Tweets />)
+const tweetsElement = document.getElementById("tweets")
+if (tweetsElement) {
+  const tweets = ReactDom.createRoot(tweetsElement)
+  tweets.render(<Tweets />)
+}
