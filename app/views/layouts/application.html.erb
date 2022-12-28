@@ -8,10 +8,70 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
   <body>
-    <%= yield %>
+    <% flash.each do |type, msg| %>
+      <div>
+        <%= msg %>
+      </div>
+    <% end %>
+    <main class="flex-grow container mx-auto px-4">
+      <div class="grid grid-cols-12 h-screen w-full">
+        <div class="flex flex-col col-span-2 pt-6 pr-6 h-screen">
+          <%= link_to root_path, class: "link text-xl tracking-tight font-black" do %>
+            <span class="text-sky-500">Twitter</span>
+          <% end %>
+          <div class="flex-grow">
+            <ul class="mt-6">
+              <li>
+                <%= link_to tweets_path, class: "rounded-full px-4 ml-4 inline-flex items-center py-3 hover:bg-neutral-50 w-full text-lg transition easy-in-out duration-500" do %>
+                  <svg class="fill current w-6 h-6 mr-4" viewBox="0 0 24 24" aria-hidden="true"><g><path d="M12 1.696L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM12 16.5c-1.933 0-3.5-1.567-3.5-3.5s1.567-3.5 3.5-3.5 3.5 1.567 3.5 3.5-1.567 3.5-3.5 3.5z"></path></g></svg>
+                  <span>Home</span>
+                <% end %>
+              </li>
+              <li>
+                <% if user_logged? %>
+                  <%= link_to edit_user_path(current_user), class: "rounded-full px-4 ml-4 inline-flex items-center py-3 hover:bg-neutral-100 w-full text-lg transition easy-in-out duration-500" do %>
+                    <svg class="fill current w-6 h-6 mr-4" viewBox="0 0 24 24" aria-hidden="true"><g><path d="M17.863 13.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44zM12 2C9.791 2 8 3.79 8 6s1.791 4 4 4 4-1.79 4-4-1.791-4-4-4z"></path></g></svg>
+                    <span>Profile</span>
+                  <% end %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to root_path, class: "rounded-full px-4 ml-4 inline-flex items-center py-3 hover:bg-neutral-100 w-full text-lg transition easy-in-out duration-500" do %>
+                  <svg class="fill current w-6 h-6 mr-4" viewBox="0 0 24 24" aria-hidden="true"><g><path d="M3.75 12c0-4.56 3.69-8.25 8.25-8.25s8.25 3.69 8.25 8.25-3.69 8.25-8.25 8.25S3.75 16.56 3.75 12zM12 1.75C6.34 1.75 1.75 6.34 1.75 12S6.34 22.25 12 22.25 22.25 17.66 22.25 12 17.66 1.75 12 1.75zm-4.75 11.5c.69 0 1.25-.56 1.25-1.25s-.56-1.25-1.25-1.25S6 11.31 6 12s.56 1.25 1.25 1.25zm9.5 0c.69 0 1.25-.56 1.25-1.25s-.56-1.25-1.25-1.25-1.25.56-1.25 1.25.56 1.25 1.25 1.25zM13.25 12c0 .69-.56 1.25-1.25 1.25s-1.25-.56-1.25-1.25.56-1.25 1.25-1.25 1.25.56 1.25 1.25z"></path></g></svg>
+                  <span>More</span>
+                <% end %>
+              </li>
+            </ul>
+          </div>
+          <% if user_logged? %>
+            <div class="h-18">
+            <%= link_to logout_path, class: "h-14 rounded-full px-4 mb-4 ml-4 inline-flex items-center py-3 hover:bg-neutral-100 w-full text-lg transition easy-in-out duration-500" do %>
+              <div class="w-7 h-7 py-1 bg-slate-200 rounded-full items-center">
+                <svg class="fill-slate-400 w-6 h-6 m-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <span class="mx-3">Logout</span>
+            <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="col-span-6 pt-6 border border-x">
+          <%= yield %>
+        </div>
+
+        <div class="col-span-4 pt-6 pl-6">
+          <% unless user_logged? %>
+            <%= link_to "Sign Up", new_user_path %>
+            <%= link_to "Login", login_path, class: "pointer-events-auto rounded-md bg-indigo-600 py-2 px-3 text-[0.8125rem] font-semibold leading-5 text-white hover:bg-indigo-500" %>
+          <% end %>
+        </div>
+      </div>
+    </main>
   </body>
 </html>

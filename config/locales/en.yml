@@ -30,4 +30,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  datetime:
+    distance_in_words:
+      short:
+        hours: "%{count}h"
+        minutes: ""
+        seconds: ""
+        days: "%{count}D"
+        weeks: "%{count}W"
+        months: "%{count}M"
+        years: "%{count}Y"
