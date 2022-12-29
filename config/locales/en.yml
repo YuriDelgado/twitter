@@ -33,6 +33,40 @@ en:
   datetime:
     distance_in_words:
       short:
+        about_x_hours:
+          one: ~ 1h
+          other: "%{count}h"
+        about_x_months:
+          one: ~ 1M
+          other: "%{count}M"
+        about_x_years:
+          one: ~ 1Y
+          other: "%{count}Y"
+        almost_x_years:
+          one: 1Y
+          other: "%{count}Y"
+        half_a_minute: 0.5m
+        less_than_x_minutes:
+          one: < 1m
+          other: < "%{count}m"
+        less_than_x_seconds:
+          one: < 1s
+          other: < "%{count}s"
+        over_x_years:
+          one: "> 1Y"
+          other: "> %{count}Y"
+        x_days:
+          one: 1d
+          other: "%{count}D"
+        x_minutes:
+          one: 1m
+          other: "%{count}m"
+        x_months:
+          one: 1M
+          other: "%{count}M"
+        x_seconds:
+          one: ""
+          other: ""
         hours: "%{count}h"
         minutes: ""
         seconds: ""
@@ -40,3 +74,10 @@ en:
         weeks: "%{count}W"
         months: "%{count}M"
         years: "%{count}Y"
+      prompts:
+        day: D
+        hour: h
+        minute: m
+        month: M
+        second: s
+        year: Y
