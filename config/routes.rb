@@ -4,9 +4,8 @@ Rails.application.routes.draw do
   get "logout", to: "sessions#destroy"
 
   resources :tweets 
+  post "retweet", to: "tweets#retweet"
 
   resources :users, except: [:destroy]
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
   root to: "home#index"
 end

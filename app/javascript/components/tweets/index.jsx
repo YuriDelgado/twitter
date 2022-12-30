@@ -25,7 +25,7 @@ function App() {
   return(
     <div className="flex flex-col items-center w-full mx-auto bg-white border-t">
       <NewTweet setTweets={setTweets} />
-      <TweetsList tweets={tweets}/>
+      <TweetsList tweets={tweets} setTweets={setTweets}/>
     </div>
   )
 }

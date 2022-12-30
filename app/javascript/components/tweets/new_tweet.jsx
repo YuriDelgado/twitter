@@ -19,20 +19,16 @@ function NewTweet({ setTweets }) {
       },
       body: JSON.stringify(data)
     })
+      .then(response => response.json())
       .then(response => {
-        if(response.ok) {
-          fetch("/tweets.json")
-            .then(res => res.json())
-            .then(data => {
-              setTweets(data)
-            })
+        if(response.tweet) {
+          setTweets(oldList => [response.tweet, ...oldList])
         } else {
           setError(`Server error: ${response}`)
         }
         setLoading(false)
       })
       .catch(error => {
-        console.log(`Network error: ${error}`)
         setError(`Network error: ${error}`)
       })
   }
