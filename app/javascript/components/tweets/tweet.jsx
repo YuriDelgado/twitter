@@ -42,7 +42,10 @@ function Tweet({ tweet, setTweets }) {
             <button onClick={() => handleRetweet(tweet.id)}><RetweetIcon /></button>
             <div className="text-xs">{tweet.tweets_count}</div>
           </div>
-          <LikeIcon />
+          <div className="inline-flex space-x-1">
+            <LikeIcon />
+            <div className="text-xs">{tweet.likes_count}</div>
+          </div>
         </div>
       </div>
     </div>
