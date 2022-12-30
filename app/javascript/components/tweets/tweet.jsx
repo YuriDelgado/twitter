@@ -27,6 +27,7 @@ function Tweet({ tweet, setTweets }) {
         console.log(`Network error: ${error}`)
       })
   }
+  console.log(tweet)
   return(
     <div>
       <div className="inline-flex items-baseline">
@@ -37,7 +38,10 @@ function Tweet({ tweet, setTweets }) {
         <div className="text-3xl font-medium text-orange-400 italic">{tweet.body}</div>
         <div className="flex inline-flex p-2 space-x-4">
           <CommentIcon />
-          <button onClick={() => handleRetweet(tweet.id)}><RetweetIcon /></button>
+          <div className="inline-flex space-x-1">
+            <button onClick={() => handleRetweet(tweet.id)}><RetweetIcon /></button>
+            <div className="text-xs">{tweet.tweets_count}</div>
+          </div>
           <LikeIcon />
         </div>
       </div>
