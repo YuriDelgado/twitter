@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
 
-      return redirect_to tweets_path
+      return redirect_to root_path
     end
 
     redirect_to root_path

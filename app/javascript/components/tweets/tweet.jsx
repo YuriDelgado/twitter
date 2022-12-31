@@ -5,9 +5,9 @@ import { RetweetIcon, CommentIcon, LikeIcon } from "../icons"
 function Tweet({ tweet, setTweets }) {
   function handleRetweet(id) {
     const csrfToken = document.querySelector("[name='csrf-token']").content
-    const data = { id: id }
+    const data = { tweet_id: id }
 
-    fetch("/retweet", {
+    fetch("/retweets", {
       method: "POST",
       headers: {
         "X-CSRF-Token": csrfToken,
@@ -17,6 +17,7 @@ function Tweet({ tweet, setTweets }) {
     })
       .then(response => response.json())
       .then(response => {
+        console.log("retweet: ", response.tweet)
         if(response.tweet) {
           setTweets(oldList => [response.tweet, ...oldList])
         } else {
@@ -27,7 +28,35 @@ function Tweet({ tweet, setTweets }) {
         console.log(`Network error: ${error}`)
       })
   }
-  console.log(tweet)
+
+  function handleLike(id) {
+    const csrfToken = document.querySelector("[name='csrf-token']").content
+    const data = { tweet_id: id }
+
+    fetch("/tweet_likes", {
+      method: "POST",
+      headers: {
+        "X-CSRF-Token": csrfToken,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+      .then(response => {
+        if(response.tweet) {
+          fetch("/tweets.json")
+            .then(response => response.json())
+            .then(data => {
+              setTweets(data)
+            })
+        } else {
+          console.log(`Server error: ${response}`)
+        }
+      })
+      .catch(error => {
+        console.log(`Network error: ${error}`)
+      })
+  }
   return(
     <div>
       <div className="inline-flex items-baseline">
@@ -43,7 +72,7 @@ function Tweet({ tweet, setTweets }) {
             <div className="text-xs">{tweet.tweets_count}</div>
           </div>
           <div className="inline-flex space-x-1">
-            <LikeIcon />
+            <button onClick={() => handleLike(tweet.id)}><LikeIcon /></button>
             <div className="text-xs">{tweet.likes_count}</div>
           </div>
         </div>

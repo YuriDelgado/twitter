@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   post "login", to: "sessions#create"
   get "logout", to: "sessions#destroy"
 
-  resources :tweets 
-  post "retweet", to: "tweets#retweet"
+  resources :users, except: :destroy
+  resources :tweets, only: %i(index create)
 
-  resources :users, except: [:destroy]
+  post "retweets", to: "retweets#create"
+  post "tweet_likes", to: "tweet_likes#create"
+
   root to: "home#index"
 end

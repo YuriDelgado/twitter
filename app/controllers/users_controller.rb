@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     session[:user_id] = @user.id
-    redirect_to tweets_path
+    redirect_to root_path
   end
 
   def edit
@@ -15,17 +15,18 @@ class UsersController < ApplicationController
 
   def update
     @user.username = user_params[:username]
+    @user.email = user_params[:email]
     if @user.save
-      return redirect_to tweets_path, notice: "Successfully updated"
+      return redirect_to root_path, notice: "Successfully updated"
     end
 
-    redirect_to tweets_path, error: "Can't save this user"
+    redirect_to root_path, error: "Can't save this user"
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:username, :password)
+    params.require(:user).permit(:email, :username, :password)
   end
 
   def set_user

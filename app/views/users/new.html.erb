@@ -1,16 +1,46 @@
-<h1>Register form</h1>
+<section>
+  <div class="px-6 h-full text-gray-800">
+    <div class="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6" >
+      <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
 
-<div>
-  <%= form_for @user do |u| %>
-    <%= u.label :username %>
-    <%= u.text_field :username %>
 
-    <%= u.label :email %>
-    <%= u.text_field :email %>
+        <%= form_with(model: @user) do |form| %>
+          <% if @user.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-    <%= u.label :password %>
-    <%= u.password_field :password %>
+              <ul>
+                <% @user.errors.each do |error| %>
+                  <li><%= error.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-    <%= u.submit %>
-  <% end %>
-</div>
+          <!-- Email input -->
+          <div class="mb-6">
+            <%= form.label :email %>
+            <%= form.text_field :email, class: "form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none", placeholder: "Email" %>
+          </div>
+
+          <!-- Username input -->
+          <div class="mb-6">
+            <%= form.label :username %>
+            <%= form.text_field :username, class: "form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none", placeholder: "Username" %>
+          </div>
+
+          <!-- Password input -->
+          <div class="mb-6">
+            <%= form.label :password %>
+            <%= form.password_field :password, class: "form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none", placeholder: "Password" %>
+          </div>
+          
+          <div class="w-full text-center lg:text-left">
+            <%= form.submit "Submit", class: "mx-auto inline-block px-7 py-3 bg-sky-400 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-sky-500 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+

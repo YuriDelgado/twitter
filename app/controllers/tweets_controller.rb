@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :index
 
   def index
     @tweets = Tweet.includes(:user).ordered
@@ -13,24 +13,6 @@ class TweetsController < ApplicationController
           render(json: { tweet: tweet.json_response }, status: :created)
         else
           render(json: tweet.errors, status: :unprocessable_entity)
-        end
-      end
-    end
-  end
-
-  def show
-    @tweet = Tweet.find(params[:id])
-  end
-
-  def retweet
-    tweet = Tweet.find(params[:id])
-    retweet = current_user.tweets.new(tweet_id: tweet.id, body: tweet.body)
-    respond_to do |format|
-      format.json do
-        if retweet.save
-          render(json: { tweet: retweet.json_response }, status: :created)
-        else
-          render(json: retweet.errors, status: :unprocessable_entity)
         end
       end
     end
