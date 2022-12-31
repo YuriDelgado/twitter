@@ -8,6 +8,8 @@ class Tweet < ApplicationRecord
 
   scope :ordered, -> { order(created_at: :desc) }
 
+  validates :body, presence: true unless :tweet_id
+
   def _type
     return "tweet" unless tweet_id?
 
